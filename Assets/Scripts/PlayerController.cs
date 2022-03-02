@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Vector3 spawnPosition = new Vector3(0, 0.25f, 0);
+    private Vector3 spawnPosition = new Vector3(0, 0, 0);
     private float speed = 4.5f;
     private float rotationSpeed = 90;
     private Animator playerAnim;
