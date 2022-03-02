@@ -12,6 +12,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private GameObject lightObject;
     private int selectedSkyIndex;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] public AudioClip getGemSound;
     // Start is called before the first frame update
     void Start()
     {

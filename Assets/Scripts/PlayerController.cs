@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
     private float speed = 4.5f;
     private float rotationSpeed = 90;
     private Animator playerAnim;
+    private AudioSource playerAudio;
     private WorldManager worldManager;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = spawnPosition;
         playerAnim = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
 
         worldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
     }
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
         if (other.gameObject.CompareTag("Gem")){
+
+            playerAudio.PlayOneShot(worldManager.getGemSound);
 
             other.gameObject.SetActive(false);
             GameManager.Instance.catchedGems.Add(other.gameObject.name);
