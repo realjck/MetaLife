@@ -1,5 +1,5 @@
 # MetaLife
-Plain metaverse experience built in Unity v2020.3.27f1
+## Plain metaverse experience built in Unity v2020.3.27f1
 
 This is a mini-game made with Unity and published in webgl, intended to be used inside metaverses like Second Life.
 
