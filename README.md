@@ -26,4 +26,4 @@ The game is made with the following assets:
 
 Screenshot of game playing inside Second Life using a Media Texture:
 
-![Snapshot3](snapshot3.png)
+![Snapshot3](snapshot3.jpg)
