@@ -41,9 +41,10 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(worldManager.getGemSound);
 
             other.gameObject.SetActive(false);
-            GameManager.Instance.catchedGems.Add(other.gameObject.name);
+            GameManager.Instance.catchedGems.Add(other.gameObject);
 
             worldManager.UpdateScoreText();
+            //worldManager.ClickChangeSky(); // for more fun
         }
     }
 }
