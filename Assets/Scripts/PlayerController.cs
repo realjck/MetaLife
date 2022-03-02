@@ -35,16 +35,14 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0,Time.deltaTime * rotationSpeed * directionX, 0);
     }
 
-    void OnTriggerEnter(Collider other){
-        if (other.gameObject.CompareTag("Gem")){
-
+    void OnCollisionEnter(Collision collision){
+        if (collision.gameObject.CompareTag("Gem")){
             playerAudio.PlayOneShot(worldManager.getGemSound);
 
-            other.gameObject.SetActive(false);
-            GameManager.Instance.catchedGems.Add(other.gameObject);
+            collision.gameObject.SetActive(false);
+            GameManager.Instance.catchedGems.Add(collision.gameObject);
 
             worldManager.UpdateScoreText();
-            //worldManager.ClickChangeSky(); // for more fun
         }
     }
 }

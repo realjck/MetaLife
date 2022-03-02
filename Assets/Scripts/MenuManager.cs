@@ -29,6 +29,7 @@ public class MenuManager : MonoBehaviour
         }
         character = Instantiate(GameManager.Instance.characters[GameManager.Instance.selectedCharacterIndex]);
         character.transform.position = characterPosition;
+        character.GetComponent<Rigidbody>().useGravity = false;
     }
 
     public void ClickLeft(){
