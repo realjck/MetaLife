@@ -15,19 +15,25 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gemSet;
     [SerializeField] public AudioClip getGemSound;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+    private AudioSource worldAudio;
     [SerializeField] public GameObject gemParticle;
     [SerializeField] public GameObject winParticle;
     [SerializeField] private Button avatarButton;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject stopButton;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI gameOverText;
     private IEnumerator timer;
-    private int elapsedTime;
+    [SerializeField] private int playTimeDuration = 180;
+    private int remainingTime;
     // Start is called before the first frame update
     void Start()
     {
 
         timer = CountTime();
+        worldAudio = GetComponent<AudioSource>();
 
         if (GameManager.Instance != null){
             
@@ -80,24 +86,40 @@ public class WorldManager : MonoBehaviour
         stopButton.SetActive(true);
         avatarButton.interactable = false;
 
+        remainingTime = playTimeDuration;
         StartCoroutine(timer);
     }
     IEnumerator CountTime(){
         while (true){
             
-            string str = Mathf.Floor(elapsedTime/60).ToString();
+            string str = Mathf.Floor(remainingTime/60).ToString();
             str += ":";
-            float remtim = elapsedTime % 60;
+            float remtim = remainingTime % 60;
             if (remtim<10){
                 str += "0";
             }
             str += remtim;
             timerText.text = str;
 
+            if (remainingTime == 0){
+                // GAME OVER
+                worldAudio.PlayOneShot(loseSound);
+                gameOverText.text = "GAME OVER";
+                StartCoroutine(ShowGameOver());
+                StopPlay();
+            }
+
             yield return new WaitForSeconds(1);
-            elapsedTime++;
+            remainingTime--;
         }
     }
+
+    IEnumerator ShowGameOver(){
+        gameOverText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        gameOverText.gameObject.SetActive(false);
+    }
+
     public void StopPlay(){
         GameManager.Instance.isPlaying = false;
         foreach(GameObject gemName in GameManager.Instance.catchedGems){
@@ -113,11 +135,35 @@ public class WorldManager : MonoBehaviour
         avatarButton.interactable = true;
 
         StopCoroutine(timer);
-        elapsedTime = 0;
     }
     public void UpdateScoreText(){
         int remainingGems = GameObject.FindGameObjectsWithTag("Gem").Length;
         int catchedGems = GameManager.Instance.catchedGems.Count;
         scoreText.text = catchedGems + "/" + (remainingGems + catchedGems);
+
+        if (remainingGems == 0){
+            // WIN GAME
+            worldAudio.PlayOneShot(winSound);
+
+            string rank;
+            if (remainingTime > 60){
+                rank = "A+";
+            } else if (remainingTime > 50){
+                rank = "A";
+            } else if (remainingTime > 35){
+                rank = "B+";
+            } else if (remainingTime > 25){
+                rank = "B";
+            } else if (remainingTime > 15){
+                rank = "C+";
+            } else {
+                rank = "C";
+            }
+
+            gameOverText.text = "CONGRATULATIONS\nYOUR RANK: "+rank;
+            StartCoroutine(ShowGameOver());
+            StopPlay();
+        }
+
     }
 }
