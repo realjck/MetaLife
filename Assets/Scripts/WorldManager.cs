@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class WorldManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] FollowCamera followCameraScript;
     [SerializeField] private GameObject lightObject;
     private int selectedSkyIndex;
+    [SerializeField] private TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,14 @@ public class WorldManager : MonoBehaviour
 
             // assign camera
             followCameraScript.player = player;
+
+            // disable catched gems
+            foreach(string gemName in GameManager.Instance.catchedGems){
+                GameObject.Find(gemName).SetActive(false);
+            }
+
+            // update score text
+            UpdateScoreText();
         }
     }
 
@@ -46,5 +56,11 @@ public class WorldManager : MonoBehaviour
 
     public void ExitToMenu(){
         SceneManager.LoadScene(0);
+    }
+
+    public void UpdateScoreText(){
+        int remainingGems = GameObject.FindGameObjectsWithTag("Gem").Length;
+        int catchedGems = GameManager.Instance.catchedGems.Count;
+        scoreText.text = catchedGems + "/" + (remainingGems + catchedGems);
     }
 }

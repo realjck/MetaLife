@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] characters;
     public int selectedCharacterIndex;
     public int selectedSkyIndex;
+    public List<string> catchedGems;
     void Awake()
     {
         if (Instance != null){

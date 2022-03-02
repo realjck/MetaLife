@@ -5,14 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Vector3 spawnPosition = new Vector3(0, 0.25f, 0);
-    private float speed = 4;
-    private float rotationSpeed = 70;
+    private float speed = 4.5f;
+    private float rotationSpeed = 90;
     private Animator playerAnim;
+    private WorldManager worldManager;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = spawnPosition;
         playerAnim = GetComponent<Animator>();
+
+        worldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
     }
 
     // Update is called once per frame
@@ -28,5 +31,15 @@ public class PlayerController : MonoBehaviour
 
         float directionX = Input.GetAxis("Horizontal");
         transform.Rotate(0,Time.deltaTime * rotationSpeed * directionX, 0);
+    }
+
+    void OnTriggerEnter(Collider other){
+        if (other.gameObject.CompareTag("Gem")){
+
+            other.gameObject.SetActive(false);
+            GameManager.Instance.catchedGems.Add(other.gameObject.name);
+
+            worldManager.UpdateScoreText();
+        }
     }
 }
