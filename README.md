@@ -7,7 +7,8 @@ Written in C#
  
 _App hosted on Github Pages in this repository (WebGL)_
 
-**You can launch the app from here: [./webgl/](https://realjck.github.io/metalife/webgl/)**
+**You can launch the app from here: [./webgl/index.html](https://realjck.github.io/metalife/webgl/)**
+
 _(please note that this version is optimized for small screens, and therefore the size of the UI may seem inappropriate when viewed on a computer.)_
   
 ![Snapshot](snapshot.png)
@@ -24,4 +25,5 @@ The game is made with the following assets:
 ![Snapshot2](snapshot2.png)
 
 Screenshot of game playing inside Second Life using a Media Texture:
+
 ![Snapshot3](snapshot3.png)
