@@ -15,6 +15,8 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gemSet;
     [SerializeField] public AudioClip getGemSound;
+    [SerializeField] public GameObject gemParticle;
+    [SerializeField] public GameObject winParticle;
     [SerializeField] private Button avatarButton;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject stopButton;

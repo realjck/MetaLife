@@ -39,8 +39,18 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Gem")){
             playerAudio.PlayOneShot(worldManager.getGemSound);
 
+            GameObject particle = worldManager.gemParticle;
+            particle.transform.position = collision.transform.position;
+            particle.GetComponent<ParticleSystem>().Play();
+
             collision.gameObject.SetActive(false);
             GameManager.Instance.catchedGems.Add(collision.gameObject);
+
+            if (GameObject.FindGameObjectWithTag("Gem") == null){
+                GameObject winParticle = worldManager.winParticle;
+                winParticle.transform.position = collision.transform.position;
+                winParticle.GetComponent<ParticleSystem>().Play();
+            }
 
             worldManager.UpdateScoreText();
         }
