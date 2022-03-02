@@ -15,7 +15,9 @@ public class FollowCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.TransformPoint(offset);
-        transform.rotation = player.transform.rotation;
+        if (player != null){
+            transform.position = player.transform.TransformPoint(offset);
+            transform.rotation = player.transform.rotation;
+        }
     }
 }

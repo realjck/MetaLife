@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] characters;
     public int selectedCharacterIndex;
+    public int selectedSkyIndex;
     void Awake()
     {
         if (Instance != null){

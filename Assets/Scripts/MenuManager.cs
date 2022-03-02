@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -43,5 +44,9 @@ public class MenuManager : MonoBehaviour
             GameManager.Instance.selectedCharacterIndex = 0;
         }
         ShowCurrentCharacter();
+    }
+
+    public void ClickRez(){
+        SceneManager.LoadScene(1);
     }
 }
