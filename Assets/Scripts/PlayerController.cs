@@ -58,37 +58,42 @@ public class PlayerController : MonoBehaviour
 
     void Update(){
         // jump
-        if ((Input.GetButtonDown("Jump")) && isOnGround){
+        if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && isOnGround){
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             // anim
             playerAnim.SetTrigger("jump_t");
         }
     }
 
+    void OnTriggerEnter(Collider other){
+        if (other.gameObject.CompareTag("Gem")){
+            // GET GEM
+            playerAudio.PlayOneShot(worldManager.getGemSound);
+
+            GameObject particle = worldManager.gemParticle;
+            particle.transform.position = other.transform.position;
+            particle.GetComponent<ParticleSystem>().Play();
+
+            other.gameObject.SetActive(false);
+            GameManager.Instance.catchedGems.Add(other.gameObject);
+
+            // win the game?
+            if (GameObject.FindGameObjectWithTag("Gem") == null){
+                GameObject winParticle = worldManager.winParticle;
+                winParticle.transform.position = other.transform.position;
+                winParticle.GetComponent<ParticleSystem>().Play();
+            }
+
+            worldManager.UpdateScoreText();
+
+        }
+    }
     void OnCollisionEnter(Collision collision){
 
         if (collision.gameObject.CompareTag("WalkPlane")){
             isOnGround = true;
             // land anim
             playerAnim.SetTrigger("land_t");
-        }
-        else if (collision.gameObject.CompareTag("Gem")){
-            playerAudio.PlayOneShot(worldManager.getGemSound);
-
-            GameObject particle = worldManager.gemParticle;
-            particle.transform.position = collision.transform.position;
-            particle.GetComponent<ParticleSystem>().Play();
-
-            collision.gameObject.SetActive(false);
-            GameManager.Instance.catchedGems.Add(collision.gameObject);
-
-            if (GameObject.FindGameObjectWithTag("Gem") == null){
-                GameObject winParticle = worldManager.winParticle;
-                winParticle.transform.position = collision.transform.position;
-                winParticle.GetComponent<ParticleSystem>().Play();
-            }
-
-            worldManager.UpdateScoreText();
         }
     }
     void OnCollisionExit(Collision collision){
