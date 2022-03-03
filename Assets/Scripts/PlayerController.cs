@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Vector3 spawnPosition = new Vector3(0, 0, 0);
-    private float speed = 4.5f;
+    [SerializeField] private float speed = 4.5f;
     private float rotationSpeed = 90;
+    private Rigidbody playerRb;
     private Animator playerAnim;
     private AudioSource playerAudio;
     private WorldManager worldManager;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         transform.position = spawnPosition;
+        playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
 
@@ -21,21 +23,23 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float directionY = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * directionY);
-        if (directionY == 0){
+        float inputY = Input.GetAxis("Vertical");
+        if (inputY == 0){
             playerAnim.SetBool("walking_b", false);
         } else {
             playerAnim.SetBool("walking_b", true);
         }
+        Vector3 moveVector = transform.forward * inputY * speed;
+        playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
 
         float directionX = Input.GetAxis("Horizontal");
         transform.Rotate(0,Time.deltaTime * rotationSpeed * directionX, 0);
     }
 
     void OnCollisionEnter(Collision collision){
+        
         if (collision.gameObject.CompareTag("Gem")){
             playerAudio.PlayOneShot(worldManager.getGemSound);
 
