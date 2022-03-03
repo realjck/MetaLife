@@ -8,8 +8,6 @@ Written in C#
 _App hosted on Github Pages in this repository (WebGL)_
 
 **You can launch the app from here: [./webgl/index.html](https://realjck.github.io/metalife/webgl/)**
-
-_(please note that this version is optimized for a 1:1 ratio wih a 16:9 crop, therefore the size of the UI may seem inappropriate when viewed with a standard ratio.)_
   
 ![Snapshot](snapshot.png)
 
