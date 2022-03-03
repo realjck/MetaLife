@@ -321,9 +321,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7227313778017375738}
   - component: {fileID: 776466691203250304}
-  - component: {fileID: 8737133578142653441}
   - component: {fileID: 2764007206234207278}
   - component: {fileID: 2661451442804796866}
+  - component: {fileID: 4989840309773469037}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -366,19 +366,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &8737133578142653441
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5915419072947152873}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.16, y: 1.9506133, z: 1}
-  m_Center: {x: 0.014297783, y: 0.7657527, z: 0}
 --- !u!54 &2764007206234207278
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -491,6 +478,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &4989840309773469037
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915419072947152873}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6070223
+  m_Height: 1.2140446
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4414699, z: 0}
 --- !u!1 &6694239006728383269
 GameObject:
   m_ObjectHideFlags: 0

@@ -1342,9 +1342,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8955967620725984396}
   - component: {fileID: 1352204516863336950}
-  - component: {fileID: 3627721816571661535}
   - component: {fileID: 8733935980002048105}
   - component: {fileID: -2249964639198352883}
+  - component: {fileID: 1137574254834474184}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -1387,19 +1387,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &3627721816571661535
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5337509658344242847}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.14, y: 1.6139021, z: 0.5679946}
-  m_Center: {x: 0.008526444, y: 0.7901151, z: -0.02273713}
 --- !u!54 &8733935980002048105
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1512,6 +1499,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &1137574254834474184
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5337509658344242847}
+  m_Material: {fileID: 13400000, guid: a8c803289bf838b4aab350696a776db8, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &5470749033871163663
 GameObject:
   m_ObjectHideFlags: 0

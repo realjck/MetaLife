@@ -1294,9 +1294,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7458755590126823151}
   - component: {fileID: 651000430656179093}
-  - component: {fileID: 5973420913379992071}
   - component: {fileID: 6782393943621682921}
   - component: {fileID: 2287580151471789418}
+  - component: {fileID: 827226830115576861}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -1339,19 +1339,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &5973420913379992071
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5897898465951814908}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.03, y: 1.6017163, z: 0.43402922}
-  m_Center: {x: 0.011915147, y: 0.8012954, z: -0.008936375}
 --- !u!54 &6782393943621682921
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1464,6 +1451,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &827226830115576861
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5897898465951814908}
+  m_Material: {fileID: 13400000, guid: a8c803289bf838b4aab350696a776db8, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &6019674701776721062
 GameObject:
   m_ObjectHideFlags: 0

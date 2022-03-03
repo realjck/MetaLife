@@ -638,9 +638,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2097248330460483290}
   - component: {fileID: 8327419589519762336}
-  - component: {fileID: 1140348080371887112}
   - component: {fileID: 8869809293128447813}
   - component: {fileID: 3904680858641086298}
+  - component: {fileID: -972226265789056089}
   m_Layer: 0
   m_Name: Boy
   m_TagString: Untagged
@@ -683,19 +683,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1140348080371887112
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116972417662467273}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.06, y: 1.6134509, z: 0.39790925}
-  m_Center: {x: -0.0028400272, y: 0.7838543, z: -0.017040327}
 --- !u!54 &8869809293128447813
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -732,7 +719,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.1137937
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -808,6 +795,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &-972226265789056089
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3116972417662467273}
+  m_Material: {fileID: 13400000, guid: a8c803289bf838b4aab350696a776db8, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &3433867272663679396
 GameObject:
   m_ObjectHideFlags: 0

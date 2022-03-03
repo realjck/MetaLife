@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     void Update(){
         // jump
-        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) && isOnGround){
+        if ((Input.GetButtonDown("Jump")) && isOnGround){
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             // anim
             playerAnim.SetTrigger("jump_t");
