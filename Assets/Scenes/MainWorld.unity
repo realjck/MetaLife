@@ -38608,7 +38608,8 @@ MonoBehaviour:
   lightObject: {fileID: 705507993}
   scoreText: {fileID: 1648171880}
   gemSet: {fileID: 2065463722}
-  getGemSound: {fileID: 8300000, guid: d4e6a3c2fe6bde7449daf70fe4e705a3, type: 3}
+  jumpSound: {fileID: 8300000, guid: 437cfc5321687b3499196c473a48391a, type: 3}
+  getGemSound: {fileID: 8300000, guid: 2b2d3dbb276f6c94192023a329ef51f5, type: 3}
   winSound: {fileID: 8300000, guid: 06d44e80cf0ba9c40ae5f6a0aadf6d3c, type: 3}
   loseSound: {fileID: 8300000, guid: 116c7db5a58aa014cb47ab784a7c9126, type: 3}
   gemParticle: {fileID: 1518106392}
