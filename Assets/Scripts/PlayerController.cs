@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 spawnPosition = new Vector3(0, 0, 0);
     [SerializeField] private float speed = 4.5f;
     private float rotationSpeed = 90;
+    private float jumpForce = 4.5f;
+    private bool isOnGround;
     private Rigidbody playerRb;
     private bool isBackwardPressed;
     private Animator playerAnim;
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
         float inputY = Input.GetAxis("Vertical");
         float inputX = Input.GetAxis("Horizontal");
 
-        // animation
+        // walk anim
         if (inputY == 0){
             playerAnim.SetBool("walking_b", false);
         } else {
@@ -54,9 +56,23 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0,Time.deltaTime * rotationSpeed * inputX, 0);
     }
 
+    void Update(){
+        // jump
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) && isOnGround){
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            // anim
+            playerAnim.SetTrigger("jump_t");
+        }
+    }
+
     void OnCollisionEnter(Collision collision){
 
-        if (collision.gameObject.CompareTag("Gem")){
+        if (collision.gameObject.CompareTag("WalkPlane")){
+            isOnGround = true;
+            // land anim
+            playerAnim.SetTrigger("land_t");
+        }
+        else if (collision.gameObject.CompareTag("Gem")){
             playerAudio.PlayOneShot(worldManager.getGemSound);
 
             GameObject particle = worldManager.gemParticle;
@@ -73,6 +89,11 @@ public class PlayerController : MonoBehaviour
             }
 
             worldManager.UpdateScoreText();
+        }
+    }
+    void OnCollisionExit(Collision collision){
+        if (collision.gameObject.CompareTag("WalkPlane")){
+            isOnGround = false;
         }
     }
 }
