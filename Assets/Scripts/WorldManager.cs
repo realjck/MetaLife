@@ -14,6 +14,7 @@ public class WorldManager : MonoBehaviour
     private int selectedSkyIndex;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gemSet;
+    [SerializeField] public AudioClip jumpSound;
     [SerializeField] public AudioClip getGemSound;
     [SerializeField] private AudioClip winSound;
     [SerializeField] private AudioClip loseSound;
@@ -88,6 +89,13 @@ public class WorldManager : MonoBehaviour
 
         remainingTime = playTimeDuration;
         StartCoroutine(timer);
+        StartCoroutine(ShowStartPlayMessage());
+    }
+    IEnumerator ShowStartPlayMessage(){
+        gameOverText.text = "GET ALL THE GEMS!";
+        gameOverText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        gameOverText.gameObject.SetActive(false);
     }
     IEnumerator CountTime(){
         while (true){
@@ -116,7 +124,7 @@ public class WorldManager : MonoBehaviour
 
     IEnumerator ShowGameOver(){
         gameOverText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(4.5f);
         gameOverText.gameObject.SetActive(false);
     }
 

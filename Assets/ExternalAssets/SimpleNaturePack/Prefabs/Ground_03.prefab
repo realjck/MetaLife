@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6179971859430226796}
   m_Layer: 0
   m_Name: Ground_03
-  m_TagString: Untagged
+  m_TagString: WalkPlane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8957304962413023527}
-  m_Material: {fileID: 13400000, guid: 999fa8e3fabfa36429a512cc02d8baff, type: 2}
+  m_Material: {fileID: 13400000, guid: a8c803289bf838b4aab350696a776db8, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4

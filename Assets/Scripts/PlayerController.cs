@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 4.5f;
     private float rotationSpeed = 90;
     private float jumpForce = 4.5f;
-    private bool isOnGround;
+    private int groundCollisionsCounter;
     private Rigidbody playerRb;
     private bool isBackwardPressed;
     private Animator playerAnim;
@@ -58,8 +58,10 @@ public class PlayerController : MonoBehaviour
 
     void Update(){
         // jump
-        if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && isOnGround){
+        if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && (groundCollisionsCounter != 0)){
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            // sound
+            playerAudio.PlayOneShot(worldManager.jumpSound);
             // anim
             playerAnim.SetTrigger("jump_t");
         }
@@ -85,20 +87,18 @@ public class PlayerController : MonoBehaviour
             }
 
             worldManager.UpdateScoreText();
-
         }
     }
     void OnCollisionEnter(Collision collision){
-
         if (collision.gameObject.CompareTag("WalkPlane")){
-            isOnGround = true;
+            groundCollisionsCounter++;
             // land anim
             playerAnim.SetTrigger("land_t");
         }
     }
     void OnCollisionExit(Collision collision){
         if (collision.gameObject.CompareTag("WalkPlane")){
-            isOnGround = false;
+            groundCollisionsCounter--;
         }
     }
 }
