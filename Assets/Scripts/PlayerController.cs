@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 4.5f;
     private float rotationSpeed = 90;
     private Rigidbody playerRb;
+    private bool isBackwardPressed;
     private Animator playerAnim;
     private AudioSource playerAudio;
     private WorldManager worldManager;
@@ -26,20 +27,35 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         float inputY = Input.GetAxis("Vertical");
+        float inputX = Input.GetAxis("Horizontal");
+
+        // animation
         if (inputY == 0){
             playerAnim.SetBool("walking_b", false);
         } else {
             playerAnim.SetBool("walking_b", true);
         }
-        Vector3 moveVector = transform.forward * inputY * speed;
+        
+        // manage 180° turn
+        if (inputY < 0){
+            if (!isBackwardPressed){
+                isBackwardPressed = true;
+                transform.Rotate(0,180,0);
+            }   
+        } else {
+            isBackwardPressed = false;
+        }
+
+        // move forward
+        Vector3 moveVector = transform.forward * Mathf.Abs(inputY) * speed;
         playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
 
-        float directionX = Input.GetAxis("Horizontal");
-        transform.Rotate(0,Time.deltaTime * rotationSpeed * directionX, 0);
+        // rotate with inputX
+        transform.Rotate(0,Time.deltaTime * rotationSpeed * inputX, 0);
     }
 
     void OnCollisionEnter(Collision collision){
-        
+
         if (collision.gameObject.CompareTag("Gem")){
             playerAudio.PlayOneShot(worldManager.getGemSound);
 
