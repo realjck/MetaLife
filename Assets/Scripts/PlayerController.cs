@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Vector3 spawnPosition = new Vector3(0, 0, 0);
     [SerializeField] private float speed = 4.5f;
-    private float rotationSpeed = 90;
+    [SerializeField] private float rotationSpeed = 100f;
     private float jumpForce = 4.5f;
     private int groundCollisionsCounter;
     private Rigidbody playerRb;
@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private WorldManager worldManager;
     private bool isWalking;
     private bool isJumping;
+    private FollowCamera cameraFollower;
+    private float angularVelocity = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,13 +25,13 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
 
         worldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
+        cameraFollower = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float inputY = Input.GetAxis("Vertical");
-        float inputX = Input.GetAxis("Horizontal");
 
         // walk anim & sound
         if (inputY == 0){
@@ -52,10 +54,15 @@ public class PlayerController : MonoBehaviour
         if (inputY < 0){
             if (!isBackwardPressed){
                 isBackwardPressed = true;
+                cameraFollower.isBackward = true;
                 transform.Rotate(0,180,0);
             }   
         } else {
-            isBackwardPressed = false;
+            if (isBackwardPressed){
+                isBackwardPressed = false;
+                transform.Rotate(0,180,0);
+            }
+            cameraFollower.isBackward = false;
         }
 
         // move forward
@@ -63,10 +70,17 @@ public class PlayerController : MonoBehaviour
         playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
 
         // rotate with inputX
-        transform.Rotate(0,Time.deltaTime * rotationSpeed * inputX, 0);
+        float inputX = Input.GetAxis("Horizontal");
+        if (isBackwardPressed){
+            inputX *= -1;
+        }
+        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,rotationSpeed * inputX,0) * Time.fixedDeltaTime);
+        playerRb.MoveRotation(playerRb.rotation * deltaRotation);
+        
     }
 
     void Update(){
+
         // jump
         if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && (groundCollisionsCounter != 0)){
             isJumping = true;

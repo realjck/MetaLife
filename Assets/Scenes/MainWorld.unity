@@ -21564,7 +21564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   offset: {x: 0, y: 2.15, z: -2.5}
+  offsetBackward: {x: 0, y: 2.15, z: 5}
   smoothTime: 0.3
+  isBackward: 0
 --- !u!4 &965517974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3356751432537613521, guid: ffbddc4ef9676cc419e81e06aaa836d8, type: 3}
