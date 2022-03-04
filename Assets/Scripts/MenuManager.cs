@@ -33,6 +33,7 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ClickLeft(){
+        AudioManager.Instance.ClickUISound();
         GameManager.Instance.selectedCharacterIndex--;
         if (GameManager.Instance.selectedCharacterIndex < 0){
             GameManager.Instance.selectedCharacterIndex = GameManager.Instance.characters.Length -1;
@@ -40,6 +41,7 @@ public class MenuManager : MonoBehaviour
         ShowCurrentCharacter();
     }
     public void ClickRight(){
+        AudioManager.Instance.ClickUISound();
         GameManager.Instance.selectedCharacterIndex++;
         if (GameManager.Instance.selectedCharacterIndex > GameManager.Instance.characters.Length -1){
             GameManager.Instance.selectedCharacterIndex = 0;
@@ -48,6 +50,8 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ClickRez(){
+        AudioManager.Instance.PlaySound("rez");
+        AudioManager.Instance.ClickUISound();
         SceneManager.LoadScene(1);
     }
 }

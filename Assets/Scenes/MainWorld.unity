@@ -16742,6 +16742,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1681363973}
+        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
+        m_MethodName: ClickUISound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &766743594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20847,6 +20859,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1681363973}
         m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
         m_MethodName: StartPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1681363973}
+        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
+        m_MethodName: ClickUISound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -38608,10 +38632,6 @@ MonoBehaviour:
   lightObject: {fileID: 705507993}
   scoreText: {fileID: 1648171880}
   gemSet: {fileID: 2065463722}
-  jumpSound: {fileID: 8300000, guid: 437cfc5321687b3499196c473a48391a, type: 3}
-  getGemSound: {fileID: 8300000, guid: 2b2d3dbb276f6c94192023a329ef51f5, type: 3}
-  winSound: {fileID: 8300000, guid: 06d44e80cf0ba9c40ae5f6a0aadf6d3c, type: 3}
-  loseSound: {fileID: 8300000, guid: 116c7db5a58aa014cb47ab784a7c9126, type: 3}
   gemParticle: {fileID: 1518106392}
   winParticle: {fileID: 835119243}
   avatarButton: {fileID: 1688894199}
@@ -38882,6 +38902,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1681363973}
         m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
         m_MethodName: ExitToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1681363973}
+        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
+        m_MethodName: ClickUISound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -46062,6 +46094,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1681363973}
         m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
         m_MethodName: ClickChangeSky
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1681363973}
+        m_TargetAssemblyTypeName: WorldManager, Assembly-CSharp
+        m_MethodName: ClickUISound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

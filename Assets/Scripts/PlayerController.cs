@@ -12,15 +12,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private bool isBackwardPressed;
     private Animator playerAnim;
-    private AudioSource playerAudio;
     private WorldManager worldManager;
+    private bool isWalking;
+    private bool isJumping;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = spawnPosition;
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
-        playerAudio = GetComponent<AudioSource>();
 
         worldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
     }
@@ -31,11 +31,21 @@ public class PlayerController : MonoBehaviour
         float inputY = Input.GetAxis("Vertical");
         float inputX = Input.GetAxis("Horizontal");
 
-        // walk anim
+        // walk anim & sound
         if (inputY == 0){
             playerAnim.SetBool("walking_b", false);
+
+            if (isWalking){
+                isWalking = false;
+                AudioManager.Instance.StopSound();
+            }
         } else {
             playerAnim.SetBool("walking_b", true);
+
+            if (!isWalking){
+                isWalking = true;
+                AudioManager.Instance.PlayLoopSound("steps");
+            }
         }
         
         // manage 180° turn
@@ -59,9 +69,11 @@ public class PlayerController : MonoBehaviour
     void Update(){
         // jump
         if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && (groundCollisionsCounter != 0)){
+            isJumping = true;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             // sound
-            playerAudio.PlayOneShot(worldManager.jumpSound);
+            AudioManager.Instance.StopSound();
+            AudioManager.Instance.PlaySound("jump");
             // anim
             playerAnim.SetTrigger("jump_t");
         }
@@ -70,7 +82,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if (other.gameObject.CompareTag("Gem")){
             // GET GEM
-            playerAudio.PlayOneShot(worldManager.getGemSound);
+            AudioManager.Instance.PlaySound("getGem");
 
             GameObject particle = worldManager.gemParticle;
             particle.transform.position = other.transform.position;
@@ -91,9 +103,22 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision){
         if (collision.gameObject.CompareTag("WalkPlane")){
+
+            // land sound
+            if (isJumping){
+                if (groundCollisionsCounter == 0){
+                    AudioManager.Instance.PlaySound("land");
+                    isJumping = false;
+                    if (isWalking){
+                        AudioManager.Instance.PlayLoopSound("steps");
+                    }
+                }
+            }
+
             groundCollisionsCounter++;
+
             // land anim
-            playerAnim.SetTrigger("land_t");
+            playerAnim.SetTrigger("land_t");  
         }
     }
     void OnCollisionExit(Collision collision){

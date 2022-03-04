@@ -14,11 +14,6 @@ public class WorldManager : MonoBehaviour
     private int selectedSkyIndex;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gemSet;
-    [SerializeField] public AudioClip jumpSound;
-    [SerializeField] public AudioClip getGemSound;
-    [SerializeField] private AudioClip winSound;
-    [SerializeField] private AudioClip loseSound;
-    private AudioSource worldAudio;
     [SerializeField] public GameObject gemParticle;
     [SerializeField] public GameObject winParticle;
     [SerializeField] private Button avatarButton;
@@ -34,7 +29,6 @@ public class WorldManager : MonoBehaviour
     {
 
         timer = CountTime();
-        worldAudio = GetComponent<AudioSource>();
 
         if (GameManager.Instance != null){
             
@@ -54,6 +48,9 @@ public class WorldManager : MonoBehaviour
         }
     }
 
+    public void ClickUISound(){
+        AudioManager.Instance.ClickUISound();
+    }
     public void ClickChangeSky(){
         selectedSkyIndex++;
         if (selectedSkyIndex > skyMaterials.Length -1){
@@ -111,7 +108,7 @@ public class WorldManager : MonoBehaviour
 
             if (remainingTime == 0){
                 // GAME OVER
-                worldAudio.PlayOneShot(loseSound);
+                AudioManager.Instance.PlaySound("lose");
                 gameOverText.text = "GAME OVER";
                 StartCoroutine(ShowGameOver());
                 StopPlay();
@@ -151,7 +148,7 @@ public class WorldManager : MonoBehaviour
 
         if (remainingGems == 0){
             // WIN GAME
-            worldAudio.PlayOneShot(winSound);
+            AudioManager.Instance.PlaySound("win");
 
             string rank;
             if (remainingTime > 60){
