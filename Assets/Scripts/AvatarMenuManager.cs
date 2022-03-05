@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour
+public class AvatarMenuManager : MonoBehaviour
 {
     [SerializeField] private Vector3 characterPosition;
     private GameObject character;

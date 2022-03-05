@@ -1488,7 +1488,7 @@ MonoBehaviour:
   timerText: {fileID: 763431440}
   gameOverText: {fileID: 1357474128}
   playTimeDuration: 180
-  gemSet: {fileID: 0}
+  gravity: 20
 --- !u!4 &1681363974
 Transform:
   m_ObjectHideFlags: 0
