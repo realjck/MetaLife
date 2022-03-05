@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 spawnPosition = new Vector3(0, 0.5f, 0);
     [SerializeField] private float speed = 4.5f;
     [SerializeField] private float rotationSpeed = 80f;
-    private float jumpForce = 4.5f;
+    [SerializeField] private float jumpForce = 7f;
     private int groundCollisionsCounter;
     private Rigidbody playerRb;
     private bool isBackwardPressed;

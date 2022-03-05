@@ -22,7 +22,8 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameOverText;
     private IEnumerator timer;
     [SerializeField] private int playTimeDuration = 180;
-    [SerializeField] private GameObject gemSet;
+    [SerializeField] private float gravity = 20;
+    private GameObject gemSet;
     private int remainingTime;
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class WorldManager : MonoBehaviour
             // instantiate world
             GameObject world = GameManager.Instance.worlds[GameManager.Instance.selectedWorldIndex];
             Instantiate(world, Vector3.zero, world.transform.rotation);
+            Physics.gravity = new Vector3(0, -gravity, 0);
             
             // apply sky
             selectedSkyIndex = GameManager.Instance.selectedSkyIndex;
@@ -54,7 +56,7 @@ public class WorldManager : MonoBehaviour
             scoreText.gameObject.SetActive(false);
         }
     }
-    
+
     public void ClickUISound(){
         if (AudioManager.Instance != null){
             AudioManager.Instance.ClickUISound();
