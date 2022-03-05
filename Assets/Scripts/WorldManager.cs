@@ -49,7 +49,9 @@ public class WorldManager : MonoBehaviour
     }
 
     public void ClickUISound(){
-        AudioManager.Instance.ClickUISound();
+        if (AudioManager.Instance != null){
+            AudioManager.Instance.ClickUISound();
+        }
     }
     public void ClickChangeSky(){
         selectedSkyIndex++;

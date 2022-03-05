@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private bool isWalking;
     private bool isJumping;
     private FollowCamera cameraFollower;
-    private float angularVelocity = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,50 +30,54 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
+        float inputForward = inputY;
+        float inputSide = inputX;
 
         // walk anim & sound
-        if (inputY == 0){
+        if (inputForward == 0){
             playerAnim.SetBool("walking_b", false);
 
             if (isWalking){
                 isWalking = false;
-                AudioManager.Instance.StopSound();
+                StopSound();
             }
         } else {
             playerAnim.SetBool("walking_b", true);
 
             if (!isWalking){
                 isWalking = true;
-                AudioManager.Instance.PlayLoopSound("steps");
+                PlaySound("steps");
             }
         }
         
-        // manage 180° turn
-        if (inputY < 0){
+        // manage 180° turns
+        if (inputForward < 0){
             if (!isBackwardPressed){
                 isBackwardPressed = true;
-                cameraFollower.isBackward = true;
+                cameraFollower.direction = 2;
                 transform.Rotate(0,180,0);
-            }   
+            }
         } else {
             if (isBackwardPressed){
                 isBackwardPressed = false;
-                transform.Rotate(0,180,0);
+                if (inputSide == 0){
+                    transform.Rotate(0,180,0);
+                }
             }
-            cameraFollower.isBackward = false;
+            cameraFollower.direction = 0;
         }
 
         // move forward
-        Vector3 moveVector = transform.forward * Mathf.Abs(inputY) * speed;
+        Vector3 moveVector = transform.forward * Mathf.Abs(inputForward) * speed;
         playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
 
-        // rotate with inputX
-        float inputX = Input.GetAxis("Horizontal");
+        // rotate
         if (isBackwardPressed){
-            inputX *= -1;
+            inputSide *= -1;
         }
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,rotationSpeed * inputX,0) * Time.fixedDeltaTime);
+        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,rotationSpeed * inputSide,0) * Time.fixedDeltaTime);
         playerRb.MoveRotation(playerRb.rotation * deltaRotation);
         
     }
@@ -86,8 +89,8 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             // sound
-            AudioManager.Instance.StopSound();
-            AudioManager.Instance.PlaySound("jump");
+            StopSound();
+            PlaySound("jump");
             // anim
             playerAnim.SetTrigger("jump_t");
         }
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if (other.gameObject.CompareTag("Gem")){
             // GET GEM
-            AudioManager.Instance.PlaySound("getGem");
+            PlaySound("getGem");
 
             GameObject particle = worldManager.gemParticle;
             particle.transform.position = other.transform.position;
@@ -121,10 +124,10 @@ public class PlayerController : MonoBehaviour
             // land sound
             if (isJumping){
                 if (groundCollisionsCounter == 0){
-                    AudioManager.Instance.PlaySound("land");
+                    PlaySound("land");
                     isJumping = false;
                     if (isWalking){
-                        AudioManager.Instance.PlayLoopSound("steps");
+                        PlaySound("steps");
                     }
                 }
             }
@@ -138,6 +141,25 @@ public class PlayerController : MonoBehaviour
     void OnCollisionExit(Collision collision){
         if (collision.gameObject.CompareTag("WalkPlane")){
             groundCollisionsCounter--;
+        }
+    }
+
+    // for debug (check if audiomanager is here)
+    private void PlaySound(string sound){
+        if (AudioManager.Instance != null){
+            switch(sound){
+                case "steps":
+                    AudioManager.Instance.PlayLoopSound(sound);
+                    break;
+                default:
+                    AudioManager.Instance.PlaySound(sound);
+                    break;
+            }
+        }
+    }
+    private void StopSound(){
+        if (AudioManager.Instance != null){
+            AudioManager.Instance.StopSound();
         }
     }
 }
