@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Vector3 spawnPosition = new Vector3(0, 0, 0);
     [SerializeField] private float speed = 4.5f;
-    [SerializeField] private float rotationSpeed = 100f;
+    [SerializeField] private float rotationSpeed = 80f;
     private float jumpForce = 4.5f;
     private int groundCollisionsCounter;
     private Rigidbody playerRb;
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
                 cameraFollower.direction = 2;
                 transform.Rotate(0,180,0);
             }
-        } else {
+        } else if (inputForward > 0) {
             if (isBackwardPressed){
                 isBackwardPressed = false;
                 if (inputSide == 0){
@@ -77,7 +77,9 @@ public class PlayerController : MonoBehaviour
         if (isBackwardPressed){
             inputSide *= -1;
         }
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,rotationSpeed * inputSide,0) * Time.fixedDeltaTime);
+        float currentSpeed = playerRb.velocity.magnitude;
+        float currentRotationSpeed = rotationSpeed + speed*15 - currentSpeed*15;
+        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,currentRotationSpeed * inputSide,0) * Time.fixedDeltaTime);
         playerRb.MoveRotation(playerRb.rotation * deltaRotation);
         
     }
