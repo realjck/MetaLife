@@ -13,7 +13,6 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private GameObject lightObject;
     private int selectedSkyIndex;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private GameObject gemSet;
     [SerializeField] public GameObject gemParticle;
     [SerializeField] public GameObject winParticle;
     [SerializeField] private Button avatarButton;
@@ -23,6 +22,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameOverText;
     private IEnumerator timer;
     [SerializeField] private int playTimeDuration = 180;
+    private GameObject gemSet;
     private int remainingTime;
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,9 @@ public class WorldManager : MonoBehaviour
             // get sky
             selectedSkyIndex = GameManager.Instance.selectedSkyIndex;
             ApplyCurrentSky();
+
+            // get gemsSet
+            gemSet = GameObject.Find("Gems");
 
             // spawn player
             GameObject player = Instantiate(GameManager.Instance.characters[GameManager.Instance.selectedCharacterIndex]);
@@ -66,6 +69,7 @@ public class WorldManager : MonoBehaviour
 
     void ApplyCurrentSky(){
         RenderSettings.skybox = skyMaterials[selectedSkyIndex];
+        DynamicGI.UpdateEnvironment();
         lightObject.transform.rotation = Quaternion.Euler(lightPositions[selectedSkyIndex]);
     }
 
