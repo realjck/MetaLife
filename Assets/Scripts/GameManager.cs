@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] characters;
     public GameObject[] worlds;
+    public string[] worldTitles;
     public int selectedCharacterIndex;
     public int selectedSkyIndex;
     public int selectedWorldIndex;
+    public bool isWorldRezzed;
     public bool isPlaying;
     public List<GameObject> catchedGems;
     void Awake()

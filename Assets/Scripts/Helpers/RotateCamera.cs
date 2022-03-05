@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class RotateCamera : MonoBehaviour
 {
-    [SerializeField] float speed;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    [SerializeField] private float speed;
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         transform.Rotate(0, Time.deltaTime * speed, 0);
     }

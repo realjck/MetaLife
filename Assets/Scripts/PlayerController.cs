@@ -59,13 +59,8 @@ public class PlayerController : MonoBehaviour
                 cameraFollower.direction = 2;
                 transform.Rotate(0,180,0);
             }
-        } else if (inputForward > 0) {
-            if (isBackwardPressed){
-                isBackwardPressed = false;
-                if (inputSide == 0){
-                    transform.Rotate(0,180,0);
-                }
-            }
+        } else if (inputForward >= 0) {
+            isBackwardPressed = false;
             cameraFollower.direction = 0;
         }
 

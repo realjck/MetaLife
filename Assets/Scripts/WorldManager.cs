@@ -16,6 +16,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] public GameObject gemParticle;
     [SerializeField] public GameObject winParticle;
     [SerializeField] private Button avatarButton;
+    [SerializeField] private Button worldButton;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject stopButton;
     [SerializeField] private TextMeshProUGUI timerText;
@@ -54,6 +55,13 @@ public class WorldManager : MonoBehaviour
             followCameraScript.player = player;
 
             scoreText.gameObject.SetActive(false);
+
+            // rez sound
+            if (AudioManager.Instance != null){
+                AudioManager.Instance.PlaySound("rez");
+            }
+
+            GameManager.Instance.isWorldRezzed = true;
         }
     }
 
@@ -79,8 +87,11 @@ public class WorldManager : MonoBehaviour
         lightObject.transform.rotation = Quaternion.Euler(lightPositions[selectedSkyIndex]);
     }
 
-    public void ExitToMenu(){
+    public void ClickAvatar(){
         SceneManager.LoadScene(0);
+    }
+    public void ClickWorld(){
+        SceneManager.LoadScene(1);
     }
     
     // GAME
@@ -95,6 +106,7 @@ public class WorldManager : MonoBehaviour
         timerText.gameObject.SetActive(true);
         stopButton.SetActive(true);
         avatarButton.interactable = false;
+        worldButton.interactable = false;
 
         remainingTime = playTimeDuration;
         StartCoroutine(timer);
@@ -150,6 +162,7 @@ public class WorldManager : MonoBehaviour
         timerText.gameObject.SetActive(false);
         stopButton.SetActive(false);
         avatarButton.interactable = true;
+        worldButton.interactable = true;
 
         StopCoroutine(timer);
     }

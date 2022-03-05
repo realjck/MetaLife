@@ -20,6 +20,8 @@ public class AvatarMenuManager : MonoBehaviour
             ClickLeft();
         } else if (Input.GetKeyDown(KeyCode.RightArrow)){
             ClickRight();
+        } else if (Input.GetKeyDown(KeyCode.Space)){
+            ClickRez();
         }
     }
 
@@ -50,8 +52,11 @@ public class AvatarMenuManager : MonoBehaviour
     }
 
     public void ClickRez(){
-        AudioManager.Instance.PlaySound("rez");
         AudioManager.Instance.ClickUISound();
-        SceneManager.LoadScene(1);
+        if (GameManager.Instance.isWorldRezzed){
+            SceneManager.LoadScene(2);
+        } else {
+            SceneManager.LoadScene(1);
+        }
     }
 }
