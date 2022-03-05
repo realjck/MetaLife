@@ -160,7 +160,7 @@ MonoBehaviour:
   - {fileID: 5851854025821250768, guid: 996d16ef0fa7547d3bdfea739982ba21, type: 3}
   - {fileID: 5897898465951814908, guid: 8593caea920d39f49820a8fa7d8500bb, type: 3}
   worlds:
-  - {fileID: 4644121690560231609, guid: 1983f9ac5c5590c4cb3ca0afd2ac3214, type: 3}
+  - {fileID: 8335114615070962648, guid: 11f20617c6bfe4e47a5856564dcd6f21, type: 3}
   selectedCharacterIndex: 0
   selectedSkyIndex: 0
   selectedWorldIndex: 0
