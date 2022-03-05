@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject[] characters;
+    public GameObject[] worlds;
     public int selectedCharacterIndex;
     public int selectedSkyIndex;
+    public int selectedWorldIndex;
     public bool isPlaying;
     public List<GameObject> catchedGems;
     void Awake()

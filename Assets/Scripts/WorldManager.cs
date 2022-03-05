@@ -22,7 +22,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameOverText;
     private IEnumerator timer;
     [SerializeField] private int playTimeDuration = 180;
-    private GameObject gemSet;
+    [SerializeField] private GameObject gemSet;
     private int remainingTime;
     // Start is called before the first frame update
     void Start()
@@ -31,13 +31,18 @@ public class WorldManager : MonoBehaviour
         timer = CountTime();
 
         if (GameManager.Instance != null){
+
+            // instantiate world
+            GameObject world = GameManager.Instance.worlds[GameManager.Instance.selectedWorldIndex];
+            Instantiate(world, Vector3.zero, world.transform.rotation);
             
-            // get sky
+            // apply sky
             selectedSkyIndex = GameManager.Instance.selectedSkyIndex;
             ApplyCurrentSky();
 
             // get gemsSet
             gemSet = GameObject.Find("Gems");
+            gemSet.SetActive(false);
 
             // spawn player
             GameObject player = Instantiate(GameManager.Instance.characters[GameManager.Instance.selectedCharacterIndex]);
@@ -46,11 +51,10 @@ public class WorldManager : MonoBehaviour
             // assign camera
             followCameraScript.player = player;
 
-            gemSet.SetActive(false);
             scoreText.gameObject.SetActive(false);
         }
     }
-
+    
     public void ClickUISound(){
         if (AudioManager.Instance != null){
             AudioManager.Instance.ClickUISound();
