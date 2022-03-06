@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldPosition: {x: 0, y: -1, z: -8}
   worldTitleText: {fileID: 1439266839}
+  lightObject: {fileID: 1278702685}
 --- !u!4 &410044266
 Transform:
   m_ObjectHideFlags: 0

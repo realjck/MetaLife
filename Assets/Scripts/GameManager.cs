@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] worlds;
     public string[] worldTitles;
     public int selectedCharacterIndex;
+    public Material[] skyMaterials;
+    public Vector3[] lightPositions;
     public int selectedSkyIndex;
     public int selectedWorldIndex;
     public bool isWorldRezzed;

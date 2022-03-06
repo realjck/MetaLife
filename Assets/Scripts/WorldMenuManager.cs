@@ -8,11 +8,19 @@ public class WorldMenuManager : MonoBehaviour
 {
     [SerializeField] private Vector3 worldPosition;
     [SerializeField] private TextMeshProUGUI worldTitleText;
+    [SerializeField] private GameObject lightObject;
     private GameObject world;
     // Start is called before the first frame update
     void Start()
     {
         ShowCurrentWorld();
+
+        // apply current sky if available
+        if (GameManager.Instance.isWorldRezzed){
+            RenderSettings.skybox = GameManager.Instance.skyMaterials[GameManager.Instance.selectedSkyIndex];
+            DynamicGI.UpdateEnvironment();
+            lightObject.transform.rotation = Quaternion.Euler(GameManager.Instance.lightPositions[GameManager.Instance.selectedSkyIndex]);
+        }
     }
 
     // Update is called once per frame

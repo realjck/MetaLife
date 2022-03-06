@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
         worldManager = GameObject.Find("WorldManager").GetComponent<WorldManager>();
         cameraFollower = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
+
+        worldManager.player = this.gameObject;
     }
 
     // Update is called once per frame
