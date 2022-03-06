@@ -2198,7 +2198,7 @@ MonoBehaviour:
   timerText: {fileID: 763431440}
   gameOverText: {fileID: 1357474128}
   difficultyNbGems: 050000000f00000000000000
-  difficultyPlayTimes: 5a00000078000000b4000000
+  difficultyPlayTimes: 4b00000078000000b4000000
   gravity: 20
   player: {fileID: 0}
 --- !u!4 &1681363974
