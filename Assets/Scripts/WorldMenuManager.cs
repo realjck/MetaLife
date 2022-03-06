@@ -19,7 +19,15 @@ public class WorldMenuManager : MonoBehaviour
         if (GameManager.Instance.isWorldRezzed){
             RenderSettings.skybox = GameManager.Instance.skyMaterials[GameManager.Instance.selectedSkyIndex];
             DynamicGI.UpdateEnvironment();
-            lightObject.transform.rotation = Quaternion.Euler(GameManager.Instance.lightPositions[GameManager.Instance.selectedSkyIndex]);
+            Vector3 lightPos = GameManager.Instance.lightPositions[GameManager.Instance.selectedSkyIndex];
+            if (lightPos == Vector3.zero){
+                lightObject.GetComponent<Light>().type = LightType.Point;
+                lightObject.GetComponent<Light>().intensity = 1;
+            } else {
+                lightObject.GetComponent<Light>().type = LightType.Directional;
+                lightObject.transform.rotation = Quaternion.Euler(lightPos);
+                lightObject.GetComponent<Light>().intensity = 0.3f;
+            }
         }
     }
 
