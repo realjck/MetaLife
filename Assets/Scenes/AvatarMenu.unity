@@ -161,9 +161,11 @@ MonoBehaviour:
   - {fileID: 5897898465951814908, guid: 8593caea920d39f49820a8fa7d8500bb, type: 3}
   worlds:
   - {fileID: 4644121690560231609, guid: 1983f9ac5c5590c4cb3ca0afd2ac3214, type: 3}
+  - {fileID: 3280060560404431974, guid: aa95e1a4546164c45868088dabd37f2e, type: 3}
   - {fileID: 8335114615070962648, guid: 11f20617c6bfe4e47a5856564dcd6f21, type: 3}
   worldTitles:
   - ALPHA WORLD
+  - FARM LAND
   - FOREST ZONE
   selectedCharacterIndex: 0
   skyMaterials:
@@ -175,7 +177,7 @@ MonoBehaviour:
   - {x: 110, y: 80, z: 0}
   - {x: 150, y: 230, z: 0}
   - {x: 150, y: -160, z: 0}
-  - {x: 40, y: -125, z: -30}
+  - {x: 0, y: 0, z: 0}
   selectedSkyIndex: 0
   selectedWorldIndex: 0
   isWorldRezzed: 0

@@ -10,6 +10,7 @@ public class WorldManager : MonoBehaviour
 {
     [SerializeField] FollowCamera followCameraScript;
     [SerializeField] private GameObject lightObject;
+    [SerializeField] private GameObject flashlightObject;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] public GameObject gemParticle;
     [SerializeField] public GameObject winParticle;
@@ -56,6 +57,9 @@ public class WorldManager : MonoBehaviour
             // assign camera
             followCameraScript.player = player;
 
+            // assign player to flashlight
+            flashlightObject.GetComponent<FollowFlashlight>().player = player;
+
             scoreText.gameObject.SetActive(false);
 
             // rez sound
@@ -87,7 +91,17 @@ public class WorldManager : MonoBehaviour
     void ApplyCurrentSky(){
         RenderSettings.skybox = GameManager.Instance.skyMaterials[GameManager.Instance.selectedSkyIndex];
         DynamicGI.UpdateEnvironment();
-        lightObject.transform.rotation = Quaternion.Euler(GameManager.Instance.lightPositions[GameManager.Instance.selectedSkyIndex]);
+        Vector3 lightPos = GameManager.Instance.lightPositions[GameManager.Instance.selectedSkyIndex];
+        if (lightPos == Vector3.zero){
+            // apply night mode
+            lightObject.SetActive(false);
+            flashlightObject.SetActive(true);
+        } else {
+            // disable night mode
+            lightObject.SetActive(true);
+            flashlightObject.SetActive(false);
+            lightObject.transform.rotation = Quaternion.Euler(lightPos);
+        }
     }
 
     public void ClickAvatar(){
