@@ -278,6 +278,7 @@ MonoBehaviour:
   win: {fileID: 8300000, guid: 06d44e80cf0ba9c40ae5f6a0aadf6d3c, type: 3}
   lose: {fileID: 8300000, guid: 116c7db5a58aa014cb47ab784a7c9126, type: 3}
   steps: {fileID: 8300000, guid: 8617e21eaaa84a44aacdb4414bfceb98, type: 3}
+  runsteps: {fileID: 8300000, guid: d0d5fc6504819554680966360bd2fa46, type: 3}
   rez: {fileID: 8300000, guid: 7bcb2adcab04bc1469340e5c378fe681, type: 3}
   click: {fileID: 8300000, guid: a00ba1dc03cd89844b65b4a21ea87667, type: 3}
 --- !u!82 &500617070

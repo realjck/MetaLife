@@ -2197,7 +2197,7 @@ MonoBehaviour:
   stopButton: {fileID: 766743591}
   timerText: {fileID: 763431440}
   gameOverText: {fileID: 1357474128}
-  difficultyNbGems: 050000000f00000000000000
+  difficultyNbGems: 0a0000001400000000000000
   difficultyPlayTimes: 4b00000078000000b4000000
   gravity: 20
   player: {fileID: 0}

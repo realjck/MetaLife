@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip win;
     public AudioClip lose;
     public AudioClip steps;
+    public AudioClip runsteps;
     public AudioClip rez;
     [Space]
     [SerializeField] private AudioClip click;

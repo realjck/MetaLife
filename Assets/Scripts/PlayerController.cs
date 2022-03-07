@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     private Vector3 spawnPosition = new Vector3(0, 0.5f, 0);
     [SerializeField] private float speed = 4.5f;
+    [SerializeField] private float runSpeed = 7.0f;
     [SerializeField] private float rotationSpeed = 80f;
+    [SerializeField] private float rotationRunSpeed = 150f;
     [SerializeField] private float jumpForce = 7f;
     private int groundCollisionsCounter;
     private Rigidbody playerRb;
@@ -14,6 +16,9 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     private WorldManager worldManager;
     private bool isWalking;
+    private bool isStartingRunning;
+    private bool isRunning;
+    private bool isKeyUpReleased;
     private bool isJumping;
     private FollowCamera cameraFollower;
     // Start is called before the first frame update
@@ -29,7 +34,6 @@ public class PlayerController : MonoBehaviour
         worldManager.player = this.gameObject;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         float inputX = Input.GetAxis("Horizontal");
@@ -38,17 +42,15 @@ public class PlayerController : MonoBehaviour
         float inputSide = inputX;
 
         // walk anim & sound
-        if (inputForward == 0){
+        if (inputForward == 0 && !isStartingRunning){
             playerAnim.SetBool("walking_b", false);
-
             if (isWalking){
                 isWalking = false;
-                StopSound();
             }
+            StopSound();
         } else {
-            playerAnim.SetBool("walking_b", true);
-
             if (!isWalking){
+                playerAnim.SetBool("walking_b", true);
                 isWalking = true;
                 PlaySound("steps");
             }
@@ -67,7 +69,16 @@ public class PlayerController : MonoBehaviour
         }
 
         // move forward
-        Vector3 moveVector = transform.forward * Mathf.Abs(inputForward) * speed;
+        float speedToApply;
+        float rotationSpeedToApply;
+        if (isRunning){
+            speedToApply = runSpeed;
+            rotationSpeedToApply = rotationRunSpeed;
+        } else {
+            speedToApply = speed;
+            rotationSpeedToApply = rotationSpeed;
+        }
+        Vector3 moveVector = transform.forward * Mathf.Abs(inputForward) * speedToApply;
         playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
 
         // rotate
@@ -75,13 +86,52 @@ public class PlayerController : MonoBehaviour
             inputSide *= -1;
         }
         float currentSpeed = playerRb.velocity.magnitude;
-        float currentRotationSpeed = rotationSpeed + speed*15 - currentSpeed*15;
+        float currentRotationSpeed = rotationSpeedToApply + speed*15 - currentSpeed*15;
         Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,currentRotationSpeed * inputSide,0) * Time.fixedDeltaTime);
         playerRb.MoveRotation(playerRb.rotation * deltaRotation);
         
     }
 
+    IEnumerator WaitKeyUpPressed(){
+        isKeyUpReleased = true;
+        yield return new WaitForSeconds(0.25f);
+        isKeyUpReleased = false;
+    }
+    IEnumerator StartRunning(){
+        isStartingRunning = true;
+        yield return new WaitForSeconds(0.25f);
+        isStartingRunning = false;
+    }
+
     void Update(){
+
+        // manage double tap up arrow to run
+        if (Input.GetKeyUp(KeyCode.UpArrow)){
+            if (!isRunning){
+                StopAllCoroutines();
+                StartCoroutine(WaitKeyUpPressed());
+            } else {
+                if (!isStartingRunning){
+                    StopSound();
+                    PlaySound("steps");
+                    playerAnim.SetBool("running_b", false);
+                    isRunning = false;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)){
+            if (isKeyUpReleased){
+                playerAnim.SetBool("running_b", true);
+                isRunning = true;
+                PlaySound("runsteps");
+                StartCoroutine(StartRunning());
+            } else {
+                if (!isStartingRunning){
+                    playerAnim.SetBool("running_b", false);
+                    isRunning = false;
+                }
+            }
+        }
 
         // jump
         if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && (groundCollisionsCounter != 0)){
@@ -125,8 +175,10 @@ public class PlayerController : MonoBehaviour
                 if (groundCollisionsCounter == 0){
                     PlaySound("land");
                     isJumping = false;
-                    if (isWalking){
+                    if (isWalking && !isRunning){
                         PlaySound("steps");
+                    } else if (isWalking && isRunning){
+                        PlaySound("runsteps");
                     }
                 }
             }
@@ -146,13 +198,12 @@ public class PlayerController : MonoBehaviour
     // for debug (check if audiomanager is here)
     private void PlaySound(string sound){
         if (AudioManager.Instance != null){
-            switch(sound){
-                case "steps":
+            if (sound == "steps" || sound == "runsteps"){
+                if (!gameObject.CompareTag("Silent")){
                     AudioManager.Instance.PlayLoopSound(sound);
-                    break;
-                default:
-                    AudioManager.Instance.PlaySound(sound);
-                    break;
+                }
+            } else {
+                AudioManager.Instance.PlaySound(sound);
             }
         }
     }

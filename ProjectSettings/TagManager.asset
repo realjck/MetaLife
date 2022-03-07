@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Gem
   - WalkPlane
+  - Silent
   layers:
   - Default
   - TransparentFX
