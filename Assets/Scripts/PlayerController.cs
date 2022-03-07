@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     private WorldManager worldManager;
     private bool isWalking;
+    private bool hasWalked;
     private bool isStartingRunning;
     private bool isRunning;
     private bool isKeyUpReleased;
@@ -47,12 +48,16 @@ public class PlayerController : MonoBehaviour
             if (isWalking){
                 isWalking = false;
             }
-            StopSound();
+            if (hasWalked){
+                StopSound();
+                hasWalked = false;
+            }
         } else {
             if (!isWalking){
                 playerAnim.SetBool("walking_b", true);
                 isWalking = true;
                 PlaySound("steps");
+                hasWalked = true;
             }
         }
         
