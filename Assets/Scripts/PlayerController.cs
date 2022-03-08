@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // jump
-        if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && (groundCollisionsCounter != 0)){
+        if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && (groundCollisionsCounter != 0)){
             isJumping = true;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             // sound

@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class AvatarMenuManager : MonoBehaviour
 {
     [SerializeField] private Vector3 characterPosition;
+    [SerializeField] private TextMeshProUGUI versionText;
     private GameObject character;
     // Start is called before the first frame update
     void Start()
     {
         ShowCurrentCharacter();
+        if (!GameManager.Instance.isWorldRezzed){
+            versionText.text = "v" + Application.version;
+        } else {
+            versionText.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
