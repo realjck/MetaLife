@@ -22,11 +22,22 @@ The game is made with the following assets:
 
 ![Snapshot2](snapshot2.png)
 
-Screenshot of game playing inside Second Life using a Media Texture:
+## About
+
+The idea for this mini-game came to me when I discovered the possibility offered by the Unity Engine (https://unity.com/) with its integration with WebGL technology. Takin into account the performance of graphics cards nowadays, a media prim texture with a 3D WebGl content in Second Life viewer is quite corrrect in terms of performance (it can vary a lot depending of the hardware, and will vary in the future).
+
+Meta-Life must be seen as a PoC (Proof of Concept), namely the fact of being able to control an avatar via another avatar in a parent world. For the joke, it was necessary to make a reference to Second Life, hence the reproduction of mechanisms (like hitting the up key twice to run, or the sound effect accompanying the arrival on a place) , as well as the name, logo and its color.
+
+I am currently training as a Junior Programmer on Unity, this project was an opportunity to put my knowledge into practice in the design of this mini-game. In particular, I used many assets under free license since I'm still in training and started to learn.
+
+As the project is hosted by Github Pages, the whole project source is available at this address: https://github.com/realjck/metalife.
 
 ![Snapshot3](snapshot3.jpg)
 
+_Screenshot of game playing inside Second Life using a media texture_
+
 ## License
+
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
