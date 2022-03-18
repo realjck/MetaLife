@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool isKeyUpReleased;
     private bool isJumping;
     private FollowCamera cameraFollower;
+    private bool isDancing;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,64 +38,67 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
-        float inputForward = inputY;
-        float inputSide = inputX;
+        if (!isDancing){
+            float inputX = Input.GetAxis("Horizontal");
+            float inputY = Input.GetAxis("Vertical");
+            float inputForward = inputY;
+            float inputSide = inputX;
 
-        // walk anim & sound
-        if (inputForward == 0 && !isStartingRunning){
-            playerAnim.SetBool("walking_b", false);
-            if (isWalking){
-                isWalking = false;
+            // walk anim & sound
+            if (inputForward == 0 && !isStartingRunning){
+                playerAnim.SetBool("walking_b", false);
+                if (isWalking){
+                    isWalking = false;
+                }
+                if (hasWalked){
+                    StopSound();
+                    hasWalked = false;
+                }
+            } else {
+                if (!isWalking){
+                    playerAnim.SetBool("walking_b", true);
+                    isWalking = true;
+                    PlaySound("steps");
+                    hasWalked = true;
+                }
             }
-            if (hasWalked){
-                StopSound();
-                hasWalked = false;
+            
+            // manage 180° turns
+            if (inputForward < 0){
+                if (!isBackwardPressed){
+                    isBackwardPressed = true;
+                    cameraFollower.direction = 2;
+                    transform.Rotate(0,180,0);
+                }
+            } else if (inputForward >= 0) {
+                isBackwardPressed = false;
+                cameraFollower.direction = 0;
             }
+
+            // move forward
+            float speedToApply;
+            float rotationSpeedToApply;
+            if (isRunning){
+                speedToApply = runSpeed;
+                rotationSpeedToApply = rotationRunSpeed;
+            } else {
+                speedToApply = speed;
+                rotationSpeedToApply = rotationSpeed;
+            }
+            Vector3 moveVector = transform.forward * Mathf.Abs(inputForward) * speedToApply;
+            playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
+
+            // rotate
+            if (isBackwardPressed){
+                inputSide *= -1;
+            }
+            float currentSpeed = playerRb.velocity.magnitude;
+            float currentRotationSpeed = rotationSpeedToApply + speed*15 - currentSpeed*15;
+            Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,currentRotationSpeed * inputSide,0) * Time.fixedDeltaTime);
+            playerRb.MoveRotation(playerRb.rotation * deltaRotation);
         } else {
-            if (!isWalking){
-                playerAnim.SetBool("walking_b", true);
-                isWalking = true;
-                PlaySound("steps");
-                hasWalked = true;
-            }
+            playerRb.velocity = Vector3.zero;
         }
-        
-        // manage 180° turns
-        if (inputForward < 0){
-            if (!isBackwardPressed){
-                isBackwardPressed = true;
-                cameraFollower.direction = 2;
-                transform.Rotate(0,180,0);
-            }
-        } else if (inputForward >= 0) {
-            isBackwardPressed = false;
-            cameraFollower.direction = 0;
-        }
-
-        // move forward
-        float speedToApply;
-        float rotationSpeedToApply;
-        if (isRunning){
-            speedToApply = runSpeed;
-            rotationSpeedToApply = rotationRunSpeed;
-        } else {
-            speedToApply = speed;
-            rotationSpeedToApply = rotationSpeed;
-        }
-        Vector3 moveVector = transform.forward * Mathf.Abs(inputForward) * speedToApply;
-        playerRb.velocity = new Vector3(moveVector.x, playerRb.velocity.y, moveVector.z);
-
-        // rotate
-        if (isBackwardPressed){
-            inputSide *= -1;
-        }
-        float currentSpeed = playerRb.velocity.magnitude;
-        float currentRotationSpeed = rotationSpeedToApply + speed*15 - currentSpeed*15;
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0,currentRotationSpeed * inputSide,0) * Time.fixedDeltaTime);
-        playerRb.MoveRotation(playerRb.rotation * deltaRotation);
-        
     }
 
     IEnumerator WaitKeyUpPressed(){
@@ -111,7 +115,7 @@ public class PlayerController : MonoBehaviour
     void Update(){
 
         // manage double tap up arrow to run
-        if (Input.GetKeyUp(KeyCode.UpArrow)){
+        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W)){
             if (!isRunning){
                 StopAllCoroutines();
                 StartCoroutine(WaitKeyUpPressed());
@@ -124,7 +128,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow)){
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)){
             if (isKeyUpReleased){
                 playerAnim.SetBool("running_b", true);
                 isRunning = true;
@@ -147,6 +151,20 @@ public class PlayerController : MonoBehaviour
             PlaySound("jump");
             // anim
             playerAnim.SetTrigger("jump_t");
+        }
+
+        // dance
+        if (Input.GetKeyDown(KeyCode.G)){
+            isDancing = !isDancing;
+            if (isDancing){
+                StopSound();
+                playerAnim.SetBool("walking_b", false);
+                playerAnim.SetBool("running_b", false);
+                cameraFollower.direction = 2;
+            } else {
+                cameraFollower.direction = 0;
+            }
+            playerAnim.SetBool("dancing_b", isDancing);
         }
     }
 
