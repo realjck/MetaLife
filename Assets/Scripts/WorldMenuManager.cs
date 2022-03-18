@@ -73,6 +73,10 @@ public class WorldMenuManager : MonoBehaviour
 
     public void ClickRez(){
         AudioManager.Instance.ClickUISound();
-        SceneManager.LoadScene(2);
+        if (GameManager.Instance.isWorldRezzed){
+            SceneManager.LoadScene(2);
+        } else {
+            SceneManager.LoadScene(3);
+        }
     }
 }
